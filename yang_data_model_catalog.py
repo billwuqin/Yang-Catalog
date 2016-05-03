@@ -3,16 +3,18 @@ import argparse
 import os.path
 import sys, getopt
 	
-__author__ = 'Anurag Bhargava'
-__email__ = "anuragb@cisco.com"
+__author__ = 'Anurag Bhargava and Qin Wu'
+__email__ = "anuragb@cisco.com and bill.wu@huawei.com"
 __version__ = "1.0"
 	
 def extract_type(input_file, dst_path, dst_file, type, mode):
 	
        	finput=open(input_file, "r")
        	alllines=finput.readlines()
-       	finput.close();
+       	finput.close()
        	foutput = 0
+	#TYPE_TAG_1 = r"^[\t]*" + re.escape(type)+ r"/s .*$"
+	#TYPE_TAG = re.compile(TYPE_TAG_1)
 	
 	output_file = dst_path + dst_file
 
@@ -26,8 +28,10 @@ def extract_type(input_file, dst_path, dst_file, type, mode):
 		spos = eachline.find(type,)
 		first = eachline.split()
 		if spos >= 0 and first[0] == type:
-       	       		foutput.writelines(eachline)	
-			
+			#if TYPE_TAG.match(eachline):
+       	       		foutput.writelines(first[1])
+       	       	else
+       	       	    continue
 	foutput.writelines('\n')
 	foutput.close
 	
