@@ -24,12 +24,13 @@ def extract_type(input_file, dst_path, dst_file, type, mode):
 		foutput = open(output_file, 'w')
 	
 	print 'type = ' + type
+	foutput.writelines(type +':'+'\n')
 	for eachline in alllines:
 		spos = eachline.find(type,)
 		first = eachline.split()
 		if spos >= 0 and first[0] == type:
 			#if TYPE_TAG.match(eachline):
-       	       		foutput.writelines(first[1])
+       	       		foutput.writelines('\t'+first[1])
        	       	else
        	       	    continue
 	foutput.writelines('\n')
